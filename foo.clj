@@ -16,18 +16,22 @@
 (defn setup []
   (q/frame-rate 30)
   (q/color-mode :rgb)
+
   (apply q/background (start-bg chromosome))
-  {:genes {:branching-limits (branching-limits chromosome)
-           :branching-angle-limits (branching-angle-limits chromosome)}
-   :current-branches [(start-center chromosome)]
-   })
 
-(defn update-state [state]
-  {:genes (:genes state)
-   :current-branches (:current-branches state)})
+  {:branching-genes {:count-limits (branching-limits chromosome)
+                     :angle-limits (branching-angle-limits chromosome)}
+   :current-branches [(start-center chromosome)]})
 
-(defn draw-state [state]
+(defn update-branches [branches genes]
   )
+
+(defn update-state [{:keys [branching-genes branches]} state]
+  (-> state
+      (update-in [:branches] update-branches branching-genes)))
+
+(defn draw-state [{:keys [branches]} state]
+    (map #() branches))
 
 (q/defsketch genetic1
   :title "Gosh"
