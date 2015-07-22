@@ -1,7 +1,6 @@
 (ns gen2.genetics)
 
-;; (defn combine [mother-genome father-genome])
 
-(defn creature [mother father]
-  (combine (:genome mother) (:genome father)))
-
+(defn gene [start length]
+  (let [end (+ start length)]
+    (fn [chromosome] (subvec chromosome start end))))
